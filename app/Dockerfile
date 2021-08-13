@@ -9,10 +9,8 @@ WORKDIR /app
 COPY requirements.txt /app/requirements/base.txt
 RUN pip install -r /app/requirements/base.txt
 
-RUN chmod +x start_dev.sh
-
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=development
 ENV PYTHONUNBUFFERED=1
 
-CMD ["/app/start_dev.sh"]
+CMD ["python","/app/app.py"]
