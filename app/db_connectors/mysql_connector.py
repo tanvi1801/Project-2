@@ -20,7 +20,7 @@ class MySQLConnector():
                 database=self.database,
                 port=self.port
             )
-            mycursor = mydb.cursor(MySQLCursorDict)
+            mycursor = mydb.cursor(dictionary=True)
             mycursor.execute("SELECT * FROM {}".format(table_name))
             rows = mycursor.fetchall()
             return rows
