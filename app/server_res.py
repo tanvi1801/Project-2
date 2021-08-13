@@ -1,13 +1,16 @@
 from flask_restful import Resource, Api
 
 
-class ServersRes(Resource):
+class ListDatabaseRes(Resource):
 
     def get(self):
         return {'hello': 'world'}
 
-    def post(self):
-        return {}
+
+class SelectDatabaseRes(Resource):
+
+    def get(self):
+        return {'hello': 'world'}
 
 
 class ServerRes(Resource):
@@ -16,4 +19,5 @@ class ServerRes(Resource):
         return {'hello': 'world'}
 
     def post(self):
+        # accept url, port, db name
         return {}

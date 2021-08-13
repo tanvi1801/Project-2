@@ -31,6 +31,8 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=hardpassword
       - POSTGRES_DB=db_admin_db_slave
+    ports:
+      - "5432:5432"  
 
   pg_admin:
     container_name: db-admin-pg-admin
