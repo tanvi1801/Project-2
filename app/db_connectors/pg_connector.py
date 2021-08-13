@@ -1,4 +1,5 @@
 import psycopg2
+import psycopg2.extras
 
 
 class PostGresConnector():
@@ -17,11 +18,11 @@ class PostGresConnector():
                 database=self.database,
                 user=self.user,
                 password=self.passsword)
-            cur = conn.cursor()
+            cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
             cur.execute(
                 "SELECT * FROM {}".format(table_name))
-            rows = list(cur.fetchall())
             print("The number of parts: ", cur.rowcount)
+            rows = list(cur.fetchall())
             for row in rows:
                 print(row)
 
