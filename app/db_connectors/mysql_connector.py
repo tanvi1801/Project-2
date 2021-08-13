@@ -1,4 +1,5 @@
-import psycopg2
+import mysql.connector
+from mysql.connector.cursor import MySQLCursorDict
 
 
 class MySQLConnector():
@@ -12,22 +13,18 @@ class MySQLConnector():
 
     def select_all(self, table_name):
         try:
-            conn = psycopg2.connect(
-                host=self.host, port=self.port,
-                database=self.database,
+            mydb = mysql.connector.connect(
+                host=self.host,
                 user=self.user,
-                password=self.passsword)
-            cur = conn.cursor()
-            cur.execute(
-                "SELECT * FROM {}".format(table_name))
-            rows = list(cur.fetchall())
-            print("The number of parts: ", cur.rowcount)
-            for row in rows:
-                print(row)
-
-            cur.close()
+                password=self.passsword,
+                database=self.database,
+                port=self.port
+            )
+            mycursor = mydb.cursor(MySQLCursorDict)
+            mycursor.execute("SELECT * FROM {}".format(table_name))
+            rows = mycursor.fetchall()
             return rows
-        except (Exception, psycopg2.DatabaseError) as error:
+        except (Exception) as error:
             print(error)
 
     def list_tables(self, table_name):
@@ -35,8 +32,10 @@ class MySQLConnector():
 
 
 if __name__ == "__main__":
-    pgc = MySQLConnector(host="localhost", port=5432,
+    mys = MySQLConnector(host="localhost", port=3306,
                          database="db_admin_db_slave",
-                         user="user",
-                         password="hardpassword")
-    pgc.select_all("cars")
+                         user="root",
+                         password="somebeach123")
+    rows = mys.select_all("animals")
+    print(rows)
+
