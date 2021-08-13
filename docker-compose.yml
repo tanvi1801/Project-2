@@ -4,10 +4,12 @@ services:
   app:
     container_name: db-admin-app
     build:
-      context: ./api
-      dockerfile: Dockerfile-dev
+      context: ./app
+      dockerfile: Dockerfile
+    ports: 
+      - 80:80
     volumes:
-      - ./api:/app
+      - ./app:/app
     depends_on:
       - pg_db
     env_file:
