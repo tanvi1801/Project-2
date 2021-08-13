@@ -20,12 +20,13 @@ class PostGresConnector():
             cur = conn.cursor()
             cur.execute(
                 "SELECT * FROM {}".format(table_name))
-            rows = cur.fetchall()
+            rows = list(cur.fetchall())
             print("The number of parts: ", cur.rowcount)
             for row in rows:
                 print(row)
 
             cur.close()
+            return rows
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
 
@@ -38,4 +39,4 @@ if __name__ == "__main__":
                             database="db_admin_db_slave",
                             user="user",
                             password="hardpassword")
-    pgc.select_all("users")
+    pgc.select_all("cars")

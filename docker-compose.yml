@@ -21,6 +21,8 @@ services:
       - db:/var/lib/postgresql/data
     env_file:
       - .env
+    ports:
+      - "5433:5432"
 
   pg_db:
     container_name: db-admin-pg-db
