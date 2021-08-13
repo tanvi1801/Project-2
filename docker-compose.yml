@@ -1,12 +1,11 @@
 version: "3.3"
 services:
-
   app:
     container_name: db-admin-app
     build:
       context: ./app
       dockerfile: Dockerfile
-    ports: 
+    ports:
       - 80:80
     volumes:
       - ./app:/app
@@ -14,14 +13,14 @@ services:
       - pg_db
     env_file:
       - .env
-  
+
   db:
     container_name: db-admin-db
     image: postgres:12
     volumes:
       - db:/var/lib/postgresql/data
     env_file:
-      - .env    
+      - .env
 
   pg_db:
     container_name: db-admin-pg-db
@@ -31,7 +30,38 @@ services:
     env_file:
       - .env
 
+  pg_admin:
+    container_name: db-admin-pg-admin
+    image: dpage/pgadmin4
+    ports:
+      - "8080:8080"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    env_file:
+      - .env
+
+  mariadb:
+    container_name: db-admin-mariadb
+    image: docker.io/bitnami/mariadb:10.3
+    env_file:
+      - .env
+    volumes:
+      - mariadb_data:/bitnami/mariadb
+
+  phpmyadmin:
+    container_name: db-admin-phpmyadmin
+    image: docker.io/bitnami/phpmyadmin:5
+    ports:
+      - "8081:8080"
+      - "443:8443"
+
+    env_file:
+      - .env
+
 volumes:
   pg_db:
   db:
   api:
+  pgadmin:
+  mariadb_data:
+    driver: local

@@ -2,6 +2,9 @@ from flask import Flask, render_template
 
 app = Flask(__name__, template_folder="templates")
 
+# test imports
+import mysql.connector
+import psycopg2
 
 @app.route("/")
 def hello_world():
