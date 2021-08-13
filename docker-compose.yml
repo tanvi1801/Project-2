@@ -27,8 +27,10 @@ services:
     image: postgres:12
     volumes:
       - pg_db:/var/lib/postgresql/data
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=hardpassword
+      - POSTGRES_DB=db_admin_db_slave
 
   pg_admin:
     container_name: db-admin-pg-admin
@@ -43,8 +45,9 @@ services:
   mariadb:
     container_name: db-admin-mariadb
     image: docker.io/bitnami/mariadb:10.3
-    env_file:
-      - .env
+    environment: 
+      - MARIADB_DATABASE=db_admin_db_slave
+      - MARIADB_ROOT_PASSWORD=somebeach123
     volumes:
       - mariadb_data:/bitnami/mariadb
 
